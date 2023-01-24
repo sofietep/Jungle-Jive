@@ -1,0 +1,78 @@
+//Initial press of the button chooses game duration and turns on the green LED and a designated amount of time later the red LED turns on to signalize the end of the game
+
+#include <ezButton.h> //Includes button interaction library
+
+int green = 9; //Green LED pin 6
+int red = 8;  //Red LED pin 7
+ezButton redButton (4); //Initializes button object in ezButton library at pin 8
+ezButton yellowButton (5);
+ezButton greenButton (6);
+ezButton blueButton (7);
+int gameDuration; //Game time in milliseconds
+
+void setup() 
+{
+  redButton.setDebounceTime(100); //Eliminates ghost presses (will ignores presses that are <= 100 milliseconds
+  yellowButton.setDebounceTime(100);
+  greenButton.setDebounceTime(100);
+  blueButton.setDebounceTime(100);
+  pinMode (green, OUTPUT); //Sets green LED pin as output
+  pinMode (red, OUTPUT); //Sets red LED pin as output
+  Serial.begin (9600); //Initializes Serial
+}
+
+void loop() 
+{
+  redButton.loop(); //Necessary for code to keep checking the button state
+  yellowButton.loop();
+  greenButton.loop();
+  blueButton.loop();
+  if (redButton.isPressed())
+  {
+    gameDuration = 450000; //Sets game time to 15 minutes
+    //Turns on a green LED for the chosen duration of the game and then shuts it off and turns on a red LED
+    digitalWrite (green, HIGH);
+    digitalWrite (red, LOW);
+    Serial.println ("Game Begin");
+    delay (gameDuration);
+    digitalWrite (green, LOW);
+    digitalWrite (red, HIGH);
+    Serial.println ("Game over");
+  }
+  else if (yellowButton.isPressed())
+  {
+    gameDuration = 600000; //Sets game time to 20 minutes
+    //Turns on a green LED for the chosen duration of the game and then shuts it off and turns on a red LED
+    digitalWrite (green, HIGH);
+    digitalWrite (red, LOW);
+    Serial.println ("Game Begin");
+    delay (gameDuration);
+    digitalWrite (green, LOW);
+    digitalWrite (red, HIGH);
+    Serial.println ("Game over");
+  }
+  else if (greenButton.isPressed())
+  {
+    gameDuration = 900000; //Sets game time to 30 minutes
+    //Turns on a green LED for the chosen duration of the game and then shuts it off and turns on a red LED
+    digitalWrite (green, HIGH);
+    digitalWrite (red, LOW);
+    Serial.println ("Game Begin");
+    delay (gameDuration);
+    digitalWrite (green, LOW);
+    digitalWrite (red, HIGH);
+    Serial.println ("Game over");
+  }
+  else if (blueButton.isPressed())
+  {
+    gameDuration = 1350000; //Sets game time to 45 minutes
+    //Turns on a green LED for the chosen duration of the game and then shuts it off and turns on a red LED
+    digitalWrite (green, HIGH);
+    digitalWrite (red, LOW);
+    Serial.println ("Game Begin");
+    delay (gameDuration);
+    digitalWrite (green, LOW);
+    digitalWrite (red, HIGH);
+    Serial.println ("Game over");
+  }
+}
