@@ -1,0 +1,30 @@
+//Pressing the button sets a random timer from 5 - 10 min, which trigger the piezo buzzer
+
+#include <ezButton.h> //Includes button library
+ezButton button (9); //Attaches button to pin 9
+int buzzer = 10; //buzzer to arduino pin 10
+long timeDelay;
+
+void setup() 
+{
+  button.setDebounceTime(100); //Ignores ghost presses
+  pinMode (buzzer, OUTPUT); //Attaches buzzer pin as an output
+  Serial.begin (9600); //Begins Serial
+}
+
+void loop() 
+{
+  button.loop(); //Necessary for button state to keep getting checked
+  if (button.isPressed()) //If the button is pressed
+  {
+    timeDelay = random(300000, 600000); //Set a random time delay between 5 - 10 minutes
+    delay (timeDelay); //Delay that amount of time
+    for (int i = 0; i<5; i++)//Beep the buzzer five times
+    {
+      tone (buzzer, 1000);
+      delay (1000);
+      noTone(buzzer);
+      delay (1000);
+    }
+  }
+}
